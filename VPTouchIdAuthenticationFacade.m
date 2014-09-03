@@ -8,6 +8,8 @@
 #import "VPTouchIdAuthenticationFacade.h"
 
 @import LocalAuthentication;
+@import CoreFoundation;
+@import UIKit;
 
 static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 
@@ -23,7 +25,7 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        if (self.iOS8AndLater) {
+        if (self.isIOS8AndLater) {
             self.authenticationContext = [[LAContext alloc] init];
             
             self.userDefaults = [NSUserDefaults standardUserDefaults];
