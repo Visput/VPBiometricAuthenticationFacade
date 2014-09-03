@@ -1,11 +1,11 @@
 //
-//  VPBiometricsFacade.m
-//  VPBiometricsFacade
+//  VPBiometricAuthenticationFacade.m
+//  VPBiometricAuthenticationFacade
 //
 //  Created by Vladimir Popko (visput).
 //
 
-#import "VPTouchIdAuthenticationFacade.h"
+#import "VPBiometricAuthenticationFacade.h"
 
 @import LocalAuthentication;
 @import CoreFoundation;
@@ -13,13 +13,13 @@
 
 static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 
-@interface VPTouchIdAuthenticationFacade ()
+@interface VPBiometricAuthenticationFacade ()
 
 @property (nonatomic, strong) LAContext *authenticationContext;
 
 @end
 
-@implementation VPTouchIdAuthenticationFacade
+@implementation VPBiometricAuthenticationFacade
 
 - (instancetype)init {
     self = [super init];
@@ -33,7 +33,7 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 
 
 - (BOOL)isAuthenticationAvailable {
-    return self.isIOS8AndLater && self.isPassByTouchIdAvailable;
+    return self.isIOS8AndLater && self.isPassByBiometricsAvailable;
 }
 
 - (BOOL)isAuthenticationEnabledForFeature:(NSString *)featureName {
@@ -61,7 +61,7 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
                            failureBlock:(void(^)(NSError *error))failureBlock {
     if (self.isAuthenticationAvailable) {
         if ([self isAuthenticationEnabledForFeature:featureName]) {
-            [self passByTouchIdWithReason:reason succesBlock:^{
+            [self passByBiometricsWithReason:reason succesBlock:^{
                 [self saveIsAuthenticationEnabled:NO forFeature:featureName];
                 successBlock();
             } failureBlock:failureBlock];
@@ -79,7 +79,7 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
                           failureBlock:(void(^)(NSError *error))failureBlock {
     if (self.isAuthenticationAvailable) {
         if ([self isAuthenticationEnabledForFeature:featureName]) {
-            [self passByTouchIdWithReason:reason
+            [self passByBiometricsWithReason:reason
                               succesBlock:successBlock
                              failureBlock:failureBlock];
         } else {
@@ -91,15 +91,15 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 }
 
 #pragma mark -
-#pragma mark Touch ID
+#pragma mark Biometrics
 
-- (BOOL)isPassByTouchIdAvailable {
+- (BOOL)isPassByBiometricsAvailable {
     return [self.authenticationContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:NULL];
 }
 
-- (void)passByTouchIdWithReason:(NSString *)reason
-                    succesBlock:(void(^)())successBlock
-                   failureBlock:(void(^)(NSError *error))failureBlock {
+- (void)passByBiometricsWithReason:(NSString *)reason
+                       succesBlock:(void(^)())successBlock
+                      failureBlock:(void(^)(NSError *error))failureBlock {
     [self.authenticationContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:reason reply:^(BOOL success, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success) {
@@ -145,9 +145,9 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 #pragma mark Error
 
 - (NSError *)authenticationUnavailabilityError {
-    return [NSError errorWithDomain:@"VPTouchIdAuthenticationDomain"
+    return [NSError errorWithDomain:@"VPBiometricsAuthenticationDomain"
                                code:1000
-                           userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Authentication by Touch ID isn't available", nil)}];
+                           userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Authentication by Biometrics isn't available", nil)}];
 }
 
 @end

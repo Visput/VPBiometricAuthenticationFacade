@@ -1,13 +1,13 @@
 //
-//  VPBiometricsFacade.h
-//  VPBiometricsFacade
+//  VPBiometricAuthenticationFacade.h
+//  VPBiometricAuthenticationFacade
 //
 //  Created by Vladimir Popko (visput).
 //
 
 #import <Foundation/Foundation.h>
 
-@interface VPTouchIdAuthenticationFacade : NSObject
+@interface VPBiometricAuthenticationFacade : NSObject
 
 - (BOOL)isAuthenticationAvailable;
 
