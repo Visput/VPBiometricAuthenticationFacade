@@ -1,2 +1,2 @@
-TouchIdAuthenticationFacade
+BiometricAuthenticationFacade
 ===========================
