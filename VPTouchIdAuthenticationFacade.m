@@ -16,7 +16,6 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 @interface VPTouchIdAuthenticationFacade ()
 
 @property (nonatomic, strong) LAContext *authenticationContext;
-@property (nonatomic, strong) NSUserDefaults *userDefaults;
 
 @end
 
@@ -27,12 +26,6 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
     if (self) {
         if (self.isIOS8AndLater) {
             self.authenticationContext = [[LAContext alloc] init];
-            
-            self.userDefaults = [NSUserDefaults standardUserDefaults];
-            if ([self.userDefaults valueForKey:kVPFeaturesDictionaryKey] == nil) {
-                [self.userDefaults setValue:@{} forKey:kVPFeaturesDictionaryKey];
-                [self.userDefaults synchronize];
-            }
         }
     }
     return self;
@@ -44,7 +37,7 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 }
 
 - (BOOL)isAuthenticationEnabledForFeature:(NSString *)featureName {
-    return self.isAuthenticationAvailable && [[[self.userDefaults valueForKey:kVPFeaturesDictionaryKey] valueForKey:featureName] boolValue];
+    return self.isAuthenticationAvailable && [self loadIsAuthenticationEnabledForFeature:featureName];
 }
 
 - (void)enableAuthenticationForFeature:(NSString *)featureName
@@ -54,8 +47,8 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
         if ([self isAuthenticationEnabledForFeature:featureName]) {
             successBlock();
         } else {
-            [[self.userDefaults valueForKey:kVPFeaturesDictionaryKey] setValue:@YES forKey:featureName];
-            [self.userDefaults synchronize];
+            [self saveIsAuthenticationEnabled:YES forFeature:featureName];
+            successBlock();
         }
     } else {
         failureBlock(self.authenticationUnavailabilityError);
@@ -69,8 +62,8 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
     if (self.isAuthenticationAvailable) {
         if ([self isAuthenticationEnabledForFeature:featureName]) {
             [self passByTouchIdWithReason:reason succesBlock:^{
-                [[self.userDefaults valueForKey:kVPFeaturesDictionaryKey] setValue:@NO forKey:featureName];
-                [self.userDefaults synchronize];
+                [self saveIsAuthenticationEnabled:NO forFeature:featureName];
+                successBlock();
             } failureBlock:failureBlock];
         } else {
             successBlock();
@@ -119,12 +112,37 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 }
 
 #pragma mark -
+#pragma mark Storage
+
+- (void)saveIsAuthenticationEnabled:(BOOL)isAuthenticationEnabled forFeature:(NSString *)featureName {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableDictionary *featuresDictionary = nil;
+    if ([userDefaults valueForKey:kVPFeaturesDictionaryKey] == nil) {
+        featuresDictionary = [NSMutableDictionary dictionary];
+    } else {
+        featuresDictionary = [NSMutableDictionary dictionaryWithDictionary:[userDefaults valueForKey:kVPFeaturesDictionaryKey]];
+    }
+    
+    [featuresDictionary setValue:@(isAuthenticationEnabled) forKey:featureName];
+    [userDefaults setValue:featuresDictionary forKey:kVPFeaturesDictionaryKey];
+    [userDefaults synchronize];
+}
+
+- (BOOL)loadIsAuthenticationEnabledForFeature:(NSString *)featureName {
+    return [[[[NSUserDefaults standardUserDefaults] valueForKey:kVPFeaturesDictionaryKey] valueForKey:featureName] boolValue];
+}
+
+#pragma mark -
 #pragma mark Utils
 
 - (BOOL)isIOS8AndLater {
     static CGFloat const kSystemVersionIOS8 = 8.0f;
     return [UIDevice currentDevice].systemVersion.floatValue >= kSystemVersionIOS8;
 }
+
+#pragma mark -
+#pragma mark Error
 
 - (NSError *)authenticationUnavailabilityError {
     return [NSError errorWithDomain:@"VPTouchIdAuthenticationDomain"
