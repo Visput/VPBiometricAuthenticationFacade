@@ -117,10 +117,11 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSMutableDictionary *featuresDictionary = nil;
-    if ([userDefaults valueForKey:kVPFeaturesDictionaryKey] == nil) {
+    NSDictionary *currentDictionary = [userDefaults valueForKey:kVPFeaturesDictionaryKey];
+    if (currentDictionary == nil) {
         featuresDictionary = [NSMutableDictionary dictionary];
     } else {
-        featuresDictionary = [NSMutableDictionary dictionaryWithDictionary:[userDefaults valueForKey:kVPFeaturesDictionaryKey]];
+        featuresDictionary = [NSMutableDictionary dictionaryWithDictionary:currentDictionary];
     }
     
     [featuresDictionary setValue:@(isAuthenticationEnabled) forKey:featureName];
@@ -129,7 +130,8 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 }
 
 - (BOOL)loadIsAuthenticationEnabledForFeature:(NSString *)featureName {
-    return [[[[NSUserDefaults standardUserDefaults] valueForKey:kVPFeaturesDictionaryKey] valueForKey:featureName] boolValue];
+    NSDictionary *featuresDictionary = [[NSUserDefaults standardUserDefaults] valueForKey:kVPFeaturesDictionaryKey];
+    return [[featuresDictionary valueForKey:featureName] boolValue];
 }
 
 #pragma mark -
