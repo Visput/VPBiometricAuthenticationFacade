@@ -31,7 +31,6 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
     return self;
 }
 
-
 - (BOOL)isAuthenticationAvailable {
     return self.isIOS8AndLater && self.isPassByBiometricsAvailable;
 }
