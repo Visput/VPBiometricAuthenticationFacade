@@ -11,6 +11,7 @@
 @import CoreFoundation;
 @import UIKit;
 
+NSString *const kVPBiometricsErrorDomain = @"VPBiometricsAuthenticationDomain";
 static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 
 @interface VPBiometricAuthenticationFacade ()
@@ -146,8 +147,8 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 #pragma mark Error
 
 - (NSError *)authenticationUnavailabilityError {
-    return [NSError errorWithDomain:@"VPBiometricsAuthenticationDomain"
-                               code:1000
+    return [NSError errorWithDomain:kVPBiometricsErrorDomain
+                               code:kVPBiometricsUnavailabilityErrorCode
                            userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Authentication by Biometrics isn't available", nil)}];
 }
 

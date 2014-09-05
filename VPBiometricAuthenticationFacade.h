@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kVPBiometricsErrorDomain;
+
+typedef enum {
+    kVPBiometricsUnavailabilityErrorCode = 1000
+} VPBiometricsErrorCode;
+
 @interface VPBiometricAuthenticationFacade : NSObject
 
 - (BOOL)isAuthenticationAvailable;
