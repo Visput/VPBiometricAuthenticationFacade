@@ -43,51 +43,57 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 - (void)enableAuthenticationForFeature:(NSString *)featureName
                            succesBlock:(void(^)())successBlock
                           failureBlock:(void(^)(NSError *error))failureBlock {
-    if (self.isAuthenticationAvailable) {
-        if ([self isAuthenticationEnabledForFeature:featureName]) {
-            successBlock();
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isAuthenticationAvailable) {
+            if ([self isAuthenticationEnabledForFeature:featureName]) {
+                successBlock();
+            } else {
+                [self saveIsAuthenticationEnabled:YES forFeature:featureName];
+                successBlock();
+            }
         } else {
-            [self saveIsAuthenticationEnabled:YES forFeature:featureName];
-            successBlock();
+            failureBlock(self.authenticationUnavailabilityError);
         }
-    } else {
-        failureBlock(self.authenticationUnavailabilityError);
-    }
+    });
 }
 
 - (void)disableAuthenticationForFeature:(NSString *)featureName
                              withReason:(NSString *)reason
                             succesBlock:(void(^)())successBlock
                            failureBlock:(void(^)(NSError *error))failureBlock {
-    if (self.isAuthenticationAvailable) {
-        if ([self isAuthenticationEnabledForFeature:featureName]) {
-            [self passByBiometricsWithReason:reason succesBlock:^{
-                [self saveIsAuthenticationEnabled:NO forFeature:featureName];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isAuthenticationAvailable) {
+            if ([self isAuthenticationEnabledForFeature:featureName]) {
+                [self passByBiometricsWithReason:reason succesBlock:^{
+                    [self saveIsAuthenticationEnabled:NO forFeature:featureName];
+                    successBlock();
+                } failureBlock:failureBlock];
+            } else {
                 successBlock();
-            } failureBlock:failureBlock];
+            }
         } else {
-            successBlock();
+            failureBlock(self.authenticationUnavailabilityError);
         }
-    } else {
-        failureBlock(self.authenticationUnavailabilityError);
-    }
+    });
 }
 
 - (void)authenticateForAccessToFeature:(NSString *)featureName
                             withReason:(NSString *)reason
                            succesBlock:(void(^)())successBlock
                           failureBlock:(void(^)(NSError *error))failureBlock {
-    if (self.isAuthenticationAvailable) {
-        if ([self isAuthenticationEnabledForFeature:featureName]) {
-            [self passByBiometricsWithReason:reason
-                                 succesBlock:successBlock
-                                failureBlock:failureBlock];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isAuthenticationAvailable) {
+            if ([self isAuthenticationEnabledForFeature:featureName]) {
+                [self passByBiometricsWithReason:reason
+                                     succesBlock:successBlock
+                                    failureBlock:failureBlock];
+            } else {
+                successBlock();
+            }
         } else {
-            successBlock();
+            failureBlock(self.authenticationUnavailabilityError);
         }
-    } else {
-        failureBlock(self.authenticationUnavailabilityError);
-    }
+    });
 }
 
 #pragma mark -
