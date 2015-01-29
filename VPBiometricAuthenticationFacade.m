@@ -80,8 +80,8 @@ static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
     if (self.isAuthenticationAvailable) {
         if ([self isAuthenticationEnabledForFeature:featureName]) {
             [self passByBiometricsWithReason:reason
-                              succesBlock:successBlock
-                             failureBlock:failureBlock];
+                                 succesBlock:successBlock
+                                failureBlock:failureBlock];
         } else {
             successBlock();
         }
