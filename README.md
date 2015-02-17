@@ -4,14 +4,20 @@ BiometricAuthenticationFacade is a high level wrapper for [LocalAuthentication f
 Full description of project is available [here (RUS)](http://habrahabr.ru/post/235699/)
 
 ## Installation
-Copy files to your project:  
-•```VPBiometricAuthenticationFacade.h```  
-•```VPBiometricAuthenticationFacade.m```
+### Drag&Drop
+1. Drag and drop BiometricAuthenticationFacade.xcodeproj to your project;
+2. Add BiometricAuthenticationFacade to Build Settings -> Target Dependencies;
+3. Add BiometricAuthenticationFacade.framework to Build Settings -> Link Binary With Libraries;
+4. Add LocalAuthentication standard framework to your project.
 
 ## System Requirements
 It requires building with iOS SDK 8.0 and later. However it can be integrated to app with lower target version.
 
 ## Usage
+### Import framework header
+```objective-c
+#import <BiometricAuthenticationFacade/VPBiometricAuthenticationFacade.h>
+```
 ### Create object instance
 ```objective-c
 VPBiometricAuthenticationFacade *biometricFacade = [[VPBiometricAuthenticationFacade alloc] init];
