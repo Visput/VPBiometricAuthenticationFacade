@@ -9,8 +9,9 @@ s.summary      =  'BiometricAuthenticationFacade is a high level wrapper for Loc
 # Source Info
 s.platform     =  :ios, '6.0'
 s.source       =  { :git => 'https://github.com/Visput/BiometricAuthenticationFacade.git', :tag => "v#{s.version}" }
-s.source_files =  "**/*.{h,m}"
-s.weak_frameworks    =  'LocalAuthentication', 'XCTest'
+s.source_files =  '**/*.{h,m}'
+s.exclude_files = '**/*Tests.{h,m}'
+s.weak_frameworks    =  'LocalAuthentication'
 
 s.requires_arc = true
 
