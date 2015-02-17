@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kVPBiometricAuthenticationFacadeVersion;
 extern NSString *const kVPBiometricsErrorDomain;
 
 typedef enum {
