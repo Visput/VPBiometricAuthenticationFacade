@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface BiometricAuthenticationFacadeTests : XCTestCase
+@interface VPBiometricAuthenticationFacadeTests : XCTestCase
 
 @end
 
-@implementation BiometricAuthenticationFacadeTests
+@implementation VPBiometricAuthenticationFacadeTests
 
 - (void)setUp {
     [super setUp];
