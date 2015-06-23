@@ -2,7 +2,7 @@
 //  VPBiometricAuthenticationFacade.h
 //  VPBiometricAuthenticationFacade
 //
-//  Created by Vladimir Popko (visput).
+//  Created by Uladzimir Papko (visput).
 //
 
 #import <Foundation/Foundation.h>

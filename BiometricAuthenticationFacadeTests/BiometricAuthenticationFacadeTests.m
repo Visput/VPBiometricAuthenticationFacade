@@ -2,7 +2,7 @@
 //  BiometricAuthenticationFacadeTests.m
 //  BiometricAuthenticationFacadeTests
 //
-//  Created by Vladimir Popko on 2/17/15.
+//  Created by Uladzimir Papko on 2/17/15.
 //  Copyright (c) 2015 Visput. All rights reserved.
 //
 
