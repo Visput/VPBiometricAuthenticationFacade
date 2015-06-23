@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
 s.name         =  'BiometricAuthenticationFacade'
-s.version      =  ‘1.0.1’
+s.version      =  '1.0.1'
 s.license      =  { :type => 'MIT', :file => 'LICENSE' }
 s.homepage     =  'https://github.com/Visput/BiometricAuthenticationFacade'
-s.authors      =  { 'Visput' => ‘uladzimir.papko@gmail.com’ }
+s.authors      =  { 'Visput' => 'uladzimir.papko@gmail.com' }
 s.summary      =  'BiometricAuthenticationFacade is a high level wrapper for LocalAuthentication framework.'
 
 # Source Info
