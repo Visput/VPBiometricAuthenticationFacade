@@ -13,6 +13,7 @@
 
 NSString *const kVPBiometricAuthenticationFacadeVersion = @"1.0.0";
 NSString *const kVPBiometricsErrorDomain = @"VPBiometricsAuthenticationDomain";
+
 static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
 
 @interface VPBiometricAuthenticationFacade ()
