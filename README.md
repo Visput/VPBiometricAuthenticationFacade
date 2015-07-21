@@ -81,3 +81,6 @@ See previous method description to understand "reason" parameter and possible er
 
 ### System Requirements
 It requires building with iOS SDK 8.0 and later. However it can be integrated to app with lower target version.
+
+### License
+BiometricAuthenticationFacade is released under the MIT license. See LICENSE for details.
