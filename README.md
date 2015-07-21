@@ -1,5 +1,5 @@
-## BiometricAuthenticationFacade
-BiometricAuthenticationFacade is a high level wrapper for [LocalAuthentication framework](https://developer.apple.com/library/ios/documentation/LocalAuthentication/Reference/LocalAuthentication_Framework/) that provides ability to enable, disable and grant access to your application features by evaluating biometric policy (Touch ID). 
+## VPBiometricAuthenticationFacade
+VPBiometricAuthenticationFacade is a high level wrapper for [LocalAuthentication](https://developer.apple.com/library/ios/documentation/LocalAuthentication/Reference/LocalAuthentication_Framework/) framework that provides ability to enable, disable and grant access to your application features by evaluating biometric policy (Touch ID). 
 
 Full description of project is available [here (RUS)](http://habrahabr.ru/post/235699/)
 
@@ -83,4 +83,4 @@ See previous method description to understand "reason" parameter and possible er
 It requires building with iOS SDK 8.0 and later. However it can be integrated to app with lower target version.
 
 ### License
-BiometricAuthenticationFacade is released under the MIT license. See LICENSE for details.
+VPBiometricAuthenticationFacade is released under the MIT license. See LICENSE for details.
