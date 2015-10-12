@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 extern NSString *const kVPBiometricAuthenticationFacadeVersion;
 extern NSString *const kVPBiometricsErrorDomain;
 
@@ -91,3 +92,4 @@ typedef NS_ENUM(NSUInteger, VPBiometricsErrorCode) {
                           failureBlock:(void(^)(NSError *error))failureBlock;
 
 @end
+NS_ASSUME_NONNULL_END
