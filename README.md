@@ -4,7 +4,7 @@ VPBiometricAuthenticationFacade is a high level wrapper for [LocalAuthentication
 Full description of project is available [here (RUS)](http://habrahabr.ru/post/235699/)
 
 ### Installation
-##### Cocoa Pods
+##### CocoaPods
 Add to your Podfile ```pod "BiometricAuthenticationFacade"```.
 ##### Drag&Drop
 1. Drag and drop BiometricAuthenticationFacade.xcodeproj to your project;
