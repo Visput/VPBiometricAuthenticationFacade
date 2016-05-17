@@ -8,8 +8,8 @@ Full description of project is available [here (RUS)](http://habrahabr.ru/post/2
 Add to your Podfile ```pod "BiometricAuthenticationFacade"```.
 ##### Drag&Drop
 1. Drag and drop BiometricAuthenticationFacade.xcodeproj to your project;
-2. Add BiometricAuthenticationFacade to Build Settings -> Target Dependencies;
-3. Add BiometricAuthenticationFacade.framework to Build Settings -> Link Binary With Libraries;
+2. Add BiometricAuthenticationFacade to Build Phases -> Target Dependencies;
+3. Add BiometricAuthenticationFacade.framework to Build Phases -> Link Binary With Libraries;
 4. Add LocalAuthentication standard framework to your project.
 
 ### Usage
