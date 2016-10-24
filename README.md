@@ -1,4 +1,4 @@
-## VPBiometricAuthenticationFacade v1.0.3
+## VPBiometricAuthenticationFacade v1.0.4
 VPBiometricAuthenticationFacade is a high level wrapper for [LocalAuthentication](https://developer.apple.com/library/ios/documentation/LocalAuthentication/Reference/LocalAuthentication_Framework/) framework that provides ability to enable, disable and grant access to your application features by evaluating biometric policy (Touch ID). 
 
 Full description of project is available [here (RUS)](http://habrahabr.ru/post/235699/)

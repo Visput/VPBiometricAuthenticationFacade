@@ -1,4 +1,7 @@
 # Change log
+## 1.0.4 (10.23.2016)
+1. Updated project settings according to Xcode 8 suggestions.
+
 ## 1.0.3 (10.12.2015)
 1. Fixed framework version in documentation.
 
