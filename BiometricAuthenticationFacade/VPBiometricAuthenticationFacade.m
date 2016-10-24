@@ -11,7 +11,7 @@
 @import CoreFoundation;
 @import UIKit;
 
-NSString *const kVPBiometricAuthenticationFacadeVersion = @"1.0.1";
+NSString *const kVPBiometricAuthenticationFacadeVersion = @"1.0.4";
 NSString *const kVPBiometricsErrorDomain = @"VPBiometricsAuthenticationDomain";
 
 static NSString *const kVPFeaturesDictionaryKey = @"VPFeaturesDictionaryKey";
